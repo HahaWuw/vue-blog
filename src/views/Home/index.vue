@@ -98,7 +98,7 @@ export default {
     li {
       width: 100%;
       height: 100%;
-      background: lightgreen;
+      // background: lightgreen;
 
     }
   }
