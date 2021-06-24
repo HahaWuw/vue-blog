@@ -1,5 +1,5 @@
 <template>
-  <div class="home-container" ref="container">
+  <div class="home-container" ref="container" v-loading="isLoading">
     <ul class="ul-container" :style="{ marginTop }" @wheel="handleWheel" @transitionend="
     handleTransionEnd">
       <li v-for="items in banners" :key="items.id">
@@ -22,6 +22,7 @@
 import { getBanners } from '@/api/banner'
 import Carouselitem from './Carouselitem.vue'
 import Icon from '@/components/Icon'
+import loading from '@/directives/loading'
 
 export default {
   components: {
@@ -33,11 +34,16 @@ export default {
       banners: [],
       index: 0,
       offsetHight: 0, // 容器高度
-      switching: false
+      switching: false,
+      isLoading: true
     }
+  },
+  directives: {
+    loading
   },
   async created() {
     this.banners = await getBanners()
+    this.isLoading = false
   },
   mounted() {
     this.offsetHight = this.$refs.container.clientHeight
@@ -85,6 +91,7 @@ export default {
   height: 100%;
   position: relative;
   overflow: hidden;
+  // background: lightpink;
   ul {
     margin: 0;
     list-style: none;
