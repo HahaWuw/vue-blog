@@ -8,10 +8,9 @@ import router from "./router";
 import showMessage from "./utils/showMessage";
 Vue.prototype.$showMessage = showMessage;
 
-// import loading from "./directives/loading";
-// Vue.directive('loading', loading)
+import loading from "./directives/loading";
+Vue.directive('loading', loading)
 
-/* eslint-disable no-new */
 new Vue({
   router,
   render: (h) => h(App)

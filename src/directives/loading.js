@@ -9,7 +9,6 @@ function createLoadingImg() {
   const img = document.createElement('img')
   img.dataset.role = 'loading'
   img.src = loadingUrl
-  console.log('2222', styles)
   // img.className = styles.loading
   img.style = `
     position: absolute;
@@ -29,7 +28,6 @@ export default function(el, binding) {
     }
   } else {
     if(curImg) {
-      console.log(el, curImg)
       // el.remove(curImg)
       curImg.remove()
     }
