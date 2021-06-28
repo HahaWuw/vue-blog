@@ -5,7 +5,7 @@
       @load="handleLoad"
       :src="src"
       alt=""
-      <!-- :style="{ opacity: originOpacity, transition: `${duration}ms` }" -->
+      :style="{ opacity: originOpacity, transition: `${duration}ms` }"
     />
   </div>
 </template>

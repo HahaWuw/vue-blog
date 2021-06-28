@@ -22,9 +22,10 @@
 import { getBanners } from '@/api/banner'
 import Carouselitem from './Carouselitem.vue'
 import Icon from '@/components/Icon'
-import loading from '@/directives/loading'
+import fetchData from '@/mixins/fetchData.js';
 
 export default {
+  mixins: [fetchData([])],
   components: {
     Icon,
     Carouselitem
@@ -37,13 +38,6 @@ export default {
       switching: false,
       isLoading: true
     }
-  },
-  directives: {
-    loading
-  },
-  async created() {
-    this.banners = await getBanners()
-    this.isLoading = false
   },
   mounted() {
     this.offsetHight = this.$refs.container.clientHeight
@@ -58,6 +52,9 @@ export default {
     }
   },
   methods: {
+    async fetchData() {
+      this.banners = await getBanners()
+    },
     switchTo(i) {
       this.index = i
     },

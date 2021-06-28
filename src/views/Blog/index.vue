@@ -1,33 +1,22 @@
 <template>
-  <div v-loading="isLoading">
-    <h1>文章</h1>
-    <RightList :list="listContent" @select="handleSelect" />
-  </div>
+  <Layout>
+    <BlogList />
+    <template #right>
+      <BlogCategory />
+    </template>
+  </Layout>
 </template>
 
 <script>
-import RightList from './RightList.vue';
-import fetchData from '@/mixins/fetchData.js';
-import { getBlogTypes } from '@/api/blog.js'
+import Layout from '@/components/Layout';
+import BlogList from './components/BlogList.vue';
+import BlogCategory from './components/BlogCategory.vue'
 
 export default {
-  mixins: [fetchData([])],
   components: {
-    RightList
-  },
-  data() {
-    return {
-      listContent: []
-    }
-  },
-  methods: {
-    async fetchData() {
-      
-      this.listContent = await getBlogTypes()
-    },
-    handleSelect(item) {
-      console.log(item)
-    }
+    Layout,
+    BlogList,
+    BlogCategory
   }
 };
 </script>
