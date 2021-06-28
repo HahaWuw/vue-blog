@@ -24,8 +24,8 @@
       </li>
     </ul>
     <!-- 分页放到这里 -->
-    <Pager 
-      v-if="data.total" 
+    <Pager
+      v-if="data.total"
       :current="routeInfo.page"
       :total="data.total"
       :limit="routeInfo.limit"
@@ -58,8 +58,12 @@ export default {
     }
   },
   watch: {
-    $route() {
-      console.log('路由更新了')
+    async $route(newValue) {
+      this.isLoading = true
+      this.$refs.container.scrollTop = 0
+      this.data = await this.fetchData()
+      console.log('路由更新了', newValue)
+      this.isLoading = false
     }
   },
   methods: {
