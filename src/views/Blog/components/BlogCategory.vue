@@ -1,7 +1,7 @@
 <template>
   <div class="blog-category-container" v-loading="isLoading">
     <h2>文章分类</h2>
-    <RightList :list="data" @select="handleSelect" />
+    <RightList :list="list" @select="handleSelect" />
   </div>
 </template>
 
@@ -14,7 +14,30 @@ export default {
   mixins: [fetchData([])],
   data() {
     return {
-      isLoading: false
+      isLoading: false,
+      // list: []
+    }
+  },
+  computed: {
+    categoryId() {
+      return +this.$route.params.categoryId || -1;
+    },
+    limit() {
+      return +this.$route.params.limit || 10
+    },
+    list() {
+      const totalArticleCount = this.data.reduce((a,b) => a+b.articleCount,0)
+      const result = [{
+        articleCount: totalArticleCount,
+        id: -1,
+        name: "全部",
+        order: 0,
+      },...this.data]
+      return result.map((item) => ({
+        ...item,
+        isSelect: item.id === this.categoryId,
+        aside: `${item.articleCount}`
+      }))
     }
   },
   components: {
@@ -24,7 +47,27 @@ export default {
     async fetchData() {
       return await getBlogTypes()
     },
-    handleSelect() {}
+    handleSelect(v) {
+      console.log(v)
+      const query = {
+        page: 1,
+        limit: this.limit
+      };
+      if(v.id === -1) {
+        this.$router.push({
+          name: 'Blog',
+          query
+        })
+      } else {
+        this.$router.push({
+          name: 'CategoryBlog',
+          query,
+          params: {
+           categoryId: v.id
+          }
+        })
+      }
+    }
   }
 }
 </script>

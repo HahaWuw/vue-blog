@@ -5,6 +5,9 @@
       <span @click="handleClick(item)" :class="{ active: item.isSelect }">{{
         item.name
       }}</span>
+      <span @click="handleClick(item)" class="aside" :class="{ active: item.isSelect }">{{
+        item.articleCount
+      }}</span>
       <RightList @select="handleClick" :list="item.children" />
     </li>
   </ul>
@@ -21,7 +24,9 @@ export default {
   },
   methods: {
     handleClick(value) {
-      this.$emit("select", value);
+      if (!value.isSelect) {
+        this.$emit("select", value);
+      }
     },
   },
 };
@@ -44,5 +49,10 @@ export default {
       font-weight: bold;
     }
   }
+}
+.aside {
+  font-size: 12px;
+  margin-left: 1em;
+  color: @gray;
 }
 </style>
