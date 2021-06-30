@@ -48,7 +48,6 @@ export default {
       return await getBlogTypes()
     },
     handleSelect(v) {
-      console.log(v)
       const query = {
         page: 1,
         limit: this.limit

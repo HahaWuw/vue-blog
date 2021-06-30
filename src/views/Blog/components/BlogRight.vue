@@ -14,11 +14,7 @@ export default {
   props: {
     toc: {
       type: Array,
-      // default: () => []
     }
-  },
-  created() {
-    console.log(this.toc)
   },
   methods: {
     handleSelect(v) {

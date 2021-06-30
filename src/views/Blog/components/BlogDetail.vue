@@ -22,9 +22,6 @@ export default {
       default: () => {}
     }
   },
-  created() {
-    console.log(this.list)
-  },
   methods: {
     formatDate
   }

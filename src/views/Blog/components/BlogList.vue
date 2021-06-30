@@ -77,7 +77,6 @@ export default {
       this.isLoading = true
       this.$refs.container.scrollTop = 0
       this.data = await this.fetchData()
-      console.log('路由更新了', newValue)
       this.isLoading = false
     }
   },
