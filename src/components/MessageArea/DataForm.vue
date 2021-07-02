@@ -58,7 +58,7 @@ export default {
       this.isSubmiting = true
       this.error.nickname = this.formData.nickname ? "" : "请填写昵称"
       this.error.content = this.formData.content ? "" : "请填写内容"
-      if(this.err.nickname || this.error.content) {
+      if(this.error.nickname || this.error.content) {
         return
       }
       this.isSubmiting = false
