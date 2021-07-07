@@ -49,13 +49,37 @@ export default {
     }
   },
   created() {
-    debounce(this.test, 50)()
+    this.setSelectDebounce = debounce(this.setSelect, 50)
+    this.$bus.$on("mainScroll", this.setSelectDebounce)
+  },
+  destroyed() {
+    this.$bus.$off("mainScroll", this.setSelectDebounce)
   },
   methods: {
-    test(){},
     handleSelect(v) {
       location.hash = v.anchor
     },
+    setSelect(scrollDom) {
+      if(!scrollDom) {
+        return
+      }
+      this.activeAnchor = ""
+      const range = 200
+      for (const dom of this.doms) {
+        if(!dom) {
+          continue
+        }
+        const top = dom.getBoundingClientRect().top;
+        if( top >= 0 && top <= range ) {
+          this.activeAnchor = dom.id
+          return
+        } else if(top > range) {
+          return
+        } else {
+          this.activeAnchor = dom.id;
+        }
+      }
+    }
   }
 }
 </script>

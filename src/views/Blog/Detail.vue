@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <div class="main-container" v-loading="isLoading">
+    <div ref="mainContainer" class="main-container" v-loading="isLoading">
       <BlogDetail :list="data" v-if="data" />
       <BlogComment v-if="!isLoading" />
     </div>
@@ -17,11 +17,12 @@ import Layout from '@/components/Layout'
 import BlogDetail from './components/BlogDetail.vue'
 import BlogRight from './components/BlogRight.vue'
 import fetchData from '@/mixins/fetchData.js'
+import mainScroll from '@/mixins/mainScroll.js'
 import { getBlog } from '@/api/blog.js'
 import BlogComment from "./components/BlogComment";
 
 export default {
-  mixins: [fetchData(null)],
+  mixins: [fetchData(null), mainScroll('mainContainer')],
   components: {
     Layout,
     BlogDetail,
@@ -32,6 +33,14 @@ export default {
     return {
       isLoading: true
     }
+  },
+  
+  updated() {
+    const hash = location.hash
+    location.hash = ""
+    setTimeout(() => {
+      location.hash = hash
+    }, 50)
   },
   methods: {
     async fetchData() {

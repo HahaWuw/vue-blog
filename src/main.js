@@ -10,6 +10,7 @@ Vue.prototype.$showMessage = showMessage;
 
 import loading from "./directives/loading";
 Vue.directive('loading', loading)
+Vue.prototype.$bus = new Vue({})
 
 new Vue({
   router,
